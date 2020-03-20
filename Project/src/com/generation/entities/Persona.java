@@ -60,4 +60,4 @@ public void setPw (String pw) {
   this.pw = pw;
 }
 
-}
+}//chisura class
