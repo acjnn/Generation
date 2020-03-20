@@ -1,17 +1,21 @@
 package com.generation.entities;
 
-public class Utente extends Entity {
+import com.generation.base.Entity;
+
+public class Persona extends Entity 
+{
 
   private String nome;
   private String cognome;
-  private Sting sesso;
-  private Int eta;
+  private String sesso;
+  private int eta;
   private String pw;
 
 // constructor
 
-  public Persona (int id, Strig nome, String cognome, String sesso
-                  int eta, String pw) {
+  public Persona (int id, String nome, String cognome, String sesso,
+                  int eta, String pw) 
+  {
     super(id);
     setNome(nome);
     setCognome(cognome);
@@ -52,7 +56,7 @@ public void setSesso (String sesso) {
 public void setEta (int eta) {
   this.eta = eta;
 }
-public void setPw (int pw) {
+public void setPw (String pw) {
   this.pw = pw;
 }
 
