@@ -1,0 +1,55 @@
+package com.generation.entities;
+
+public class Libro extends Entity {
+
+  private String titolo, autore, genere;
+  private Int numeropagine, annopubblicazione;
+
+// constructor
+
+  public Persona (int id, Strig titolo, String autore, String genere
+                  int numeropagine, int annopubblicazione) {
+    super(id);
+    setTitolo(titolo);
+    setAutore(autore);
+    setGenere(genere);
+    setNumeropagine(numeropagine);
+    setAnnopubblicazione(annopubblicazione);
+    }
+
+// getters
+
+public String getTitolo () {
+  return titolo;
+}
+public String getAutore () {
+  return autore;
+}
+public String getGenere () {
+  return genere;
+}
+public int getNumeropagine () {
+  return numeropagine;
+}
+public String getAnnopubblicazione () {
+  return annopubblicazione;
+}
+
+// setters
+
+public void setTitolo (String titolo) {
+  this.titolo = titolo;
+}
+public void setAutore (String autore) {
+  this.autore = autore;
+}
+public void setGenere (String genere) {
+  this.genere = genere;
+}
+public void setNumeropagine (int numeropagine) {
+  this.numeropagine = numeropagine;
+}
+public void setAnnopubblicazione (int annopubblicazione) {
+  this.annopubblicazione = annopubblicazione;
+}
+}
