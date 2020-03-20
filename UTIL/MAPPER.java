@@ -1,88 +1,92 @@
 package com.generation.base;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
-public interface Mapper //USA JAVA REFLECTION
+public interface Mapper //usa Java Reflection
 {
-	default public Map<String,String>toMap()
+	default public Map<String,String> toMap()
 	{
-		//MAPPA.PUT("SURNAME","LEPRI");
+		//mappa.put("surname","Lepri");
 		Map<String,String> mappa = new HashMap<String,String>();
+		
 		for(Method m : this.getClass().getMethods())
 		{
 			if(m.getName().equalsIgnoreCase("getClass"))
-				continue;  //PROSEGUI NELL'ESEGUIRE IL CICLO DALL'INIZIO
+				continue; // prosegui nell'eseguire il ciclo dall'inizio
+			
 			if(m.getName().startsWith("get")) //m.getName() getSurname
 			{
-				//MAPPA { NAME = GLORIA, SURNAME = LEPRI}
+				// mappa { name = gloria, surname = lepri}
 				String nomeProprieta = m.getName().replace("get", "").toLowerCase();
-
+									
 				try
-				{
-					//PRENDI IL METODO M E INVOCALO SU this.getSurname();
+				{							//prendi il metodo m e invocalo su this -> this.getSurname()
 					mappa.put(nomeProprieta, m.invoke(this).toString());
 				}
 				catch(Exception e)
 				{
-					//ABBIAMO USATO UN PO' TROPPO LE NOSTRE CAPACITA' DI PROGRAMMATORI
+					//abbiamo usato un po' troppo le nostre capacità di programmatori
 				}
-
 			}
-
-		}//CHIUSURA FOR
-
+			
+		}
 		return mappa;
 	}
-	//VOGLIAMO UTILIZZARE I METODI SET PER ATTRIBUIRE I VALORI ALLE PROPRIETA' DEI NOSTRI OGGETTI DA MAPPA A STATO DELL'OGGETTO
+	/**
+	 * Vogliamo utilizzare i metodi set per attribuire i valori alle proprietà dei nostri oggetti
+	 * da mappa a stato dell'oggetto
+	 * @param mappa
+	 */
 	default public void fromMap(Map<String,String> mappa)
 	{
-		//mappa = {id = 1, name = Gloria, surname = Lepri, dob = 1990-07-12, conoscenze = Boh}
+		// mappa = {id = 1, name = Gloria, surname = Lepri, dob = 1990-07-12, conoscenze = Boh}
+		
 		for(String k : mappa.keySet())
 		{
 			for(Method m : this.getClass().getMethods())
-			{
-				//SetName(String name)  -->m.getParameterCount() --> 1
-
-				//SetId(java.matgh.BigInteger id)
+			{										//setName(String name) -> m.getParameterCount() -> 1
+													//setId(java.math.BigInteger id)
 				if(m.getName().startsWith("set") && m.getParameterCount()==1)
 				{
-					String nomeMetodo = m.getName().replace("set", "").toLowerCase();
+					String nomeMetodo = m.getName().replace("set","").toLowerCase();
 					if(k.equalsIgnoreCase(nomeMetodo))
 					{
+									//m = setId(java.math.BigInteger id)
+									//m.getParameters() = [java.math.BigInteger id]
+									//m.getParameters()[0] = java.math.BigInteger id
+									//m.getParameters()[0].getType() = java.math.BigInteger
+									//m.getParameters()[0].getType().getSimpleName() = BigInteger
+						// ciò che c'è a destra deve essere uguale a ciò che c'è a sinistra
+						 
 						String tipo = m.getParameters()[0].getType().getSimpleName();
-						try
+						try 
 						{
 							switch(tipo)
 							{
-							case "String":
-								m.invoke(this,mappa.get(k));
+								case "String":
+									m.invoke(this,mappa.get(k)); //this.m(mappa.get(k))
 								break;
-							case "int":
-								m.invoke(this,Integer.parseInt(mappa.get(k)));
+								case "int":
+									m.invoke(this,Integer.parseInt(mappa.get(k)));
 								break;
-							case "double":
-								m.invoke(this,Double.parseDouble(mappa.get(k)));
+								case "double":
+									m.invoke(this,Double.parseDouble(mappa.get(k)));
 								break;
-							case"BigInteger":
-							m.invoke(this,BigInteger.valueOf(Integer.parseInt(mappa.get(k))));
-							break;
-
-							}//CHIUSURA SWITCH
-						} //CHIUSURA TRY
+								case "BigInteger":
+									m.invoke(this,BigInteger.valueOf(Integer.parseInt(mappa.get(k))));
+								break;
+							}
+						}
 						catch(Exception e)
 						{
-							//ABBIAMO USATO UN PO' TROPPO LE NOSTRE CAPACITA' DI PROGRAMMATORI
+							//abbiamo usato un po' troppo le nostre capacità di programmatori
 						}
-
-					} //CHIUSURA 2° IF
-				} //CHIUSURA 1° IF
+					}
+				}
 			}
 		}
 	}
-}//CHIUSURA INTERFACE
+}
