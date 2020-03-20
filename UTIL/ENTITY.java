@@ -2,27 +2,29 @@ package com.generation.base;
 
 import java.math.BigInteger;
 
-public abstract class Entity implements Mapper
+public abstract class Entity implements Mapper, Validator
 {
-    public static final int IDMIN = 1;
-    //LE POPRIETA' E LO STATO DELL'OGGETTO CI SONO SOLO NELLE CLASSI ASTRATTE NON NELLE INTERFACCE
-    //ED E' QUESTA LA PRINCIPALE DIFFERENZA TRA CLASSI ASTRATTE E INTERFACCE
+	public static final int IDMIN = 1;
+	
+	//LE proprietà dell'oggetto ci sono solo nelle classi
+	//astratte NON nelle interfacce, per cui la differenza
+	//è che le classi astratte hanno LO STATO DELL'OGGETTO
+	protected BigInteger id;
+	public Entity() {}
+	public Entity(int id) 
+	{
+		this.id = BigInteger.valueOf(id);
+	}
 
-    protected BigInteger id;
-    public Entity(int id)
-    {
+	public BigInteger getId()
+	{
+		return id;
+	}
 
-        this.id = BigInteger.valueOf(id);
-    }
-    public BigInteger getId()
-    {
-        return id;
-    }
-    public void setId(int id)
-    {
-        this.id = BigInteger.valueOf(id);
-    }
-
-    // public abstract String --> DOVRA' ESSERE IMPLEMENTATO DA FIGLI CONCRETI
-
-}//CHIUSURA CLASS
+	public void setId(int id) 
+	{
+		this.id = BigInteger.valueOf(id);
+	}
+	
+	// public abstract String questoDovraEssereImplementatoDaiFigliConcreti();
+}
