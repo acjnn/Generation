@@ -7,7 +7,7 @@ public class Libro extends Entity {
 
 // constructor
 
-  public Persona (int id, Strig titolo, String autore, String genere
+  public Libro (int id, Strig titolo, String autore, String genere
                   int numeropagine, int annopubblicazione) {
     super(id);
     setTitolo(titolo);
